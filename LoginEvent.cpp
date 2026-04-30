@@ -10,7 +10,7 @@ using namespace std;
         LoginEvent::LoginEvent(string uid, string eid, string time, string sever, string lstatus)
         : SystemEvent(uid, eid, "Login", time, sever)
         {
-            loginStatus = lstatus;  
+            loginStatus = lstatus;  // new variable
         }
         
         void LoginEvent::displayInfo() {
