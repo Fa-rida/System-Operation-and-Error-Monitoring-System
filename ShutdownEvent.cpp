@@ -7,7 +7,7 @@
 #include "ShutdownEvent.h"
 
 using namespace std;
-
+// class name 4 ShutdownEvent
 // uses :: again to match the other classes + data comes from other classes
     ShutdownEvent::ShutdownEvent(string uid, string eid, string time, string sever, 
     string status) : SystemEvent(uid, eid, "Shutdown", time, sever) {
