@@ -26,7 +26,6 @@ class SystemEvent {
     
     public: //names
     SystemEvent (string uid, string eid, string event, string time, string sever);
-    ing into inginto
     virtual void displayInfo();
     virtual string toFileString();
     virtual ~SystemEvent();
