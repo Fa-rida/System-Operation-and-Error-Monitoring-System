@@ -3,6 +3,8 @@
 #include "SystemManager.h"
 #include <iostream>
 #include <sstream>
+#include <iomanip> //edit
+#include <ctime> //edit   this is the c++ library for generating time
 
 using namespace std;
 
@@ -13,6 +15,23 @@ SystemManager::SystemManager(LogManager* lm) { //the :: means that this belongs 
     hasUnsavedChanges = false;
     currentUserID = ""; //these four mean the same thing, it's the starting point of the program. " " because there is no user logged in,
   // no number because there are 0 failed login attempts, etc..
+}
+
+string SystemManager::generateTimestamp(){  //edit
+    time_t currTime = time(0); //time_t is a datatype and currTime is the variable. time(0) is a function that stores the current time.
+    tm* myTime = localtime(&currTime);//tm is a custom data type under <ctime> localtime takes raw time and converts it into actual time that we understand.
+                                //&currTime means give the address of the variable "currTime" because localtime() expects a pointer.
+    stringstream ss;//creating a string stream
+    //localtime(&currTime) has already converted the raw time to readable format and its stored in memory as mentioned below.
+    
+    ss << setw(2) << setfill ('0') << (myTime->tm_mon + 1) << "-";//tm_mon is the variable stored in memory for month and we are using the arrow because myTime is a pointer and +1 because months start from 0 in c++.
+    ss << setw(2) << setfill ('0') << (myTime->tm_mday) << "-"; //tm_mday means date
+    ss << (myTime->tm_year + 1900) << " ";                      //tm_year means year...and so on. oh and i used +1900 because apparently, c++ does not store the full year. it just stores the number
+                                                                //of years from 1900 e.g. 126. so adding 1900 to that gives the original year.
+    ss << setw(2) << setfill ('0') << myTime->tm_hour << ":";
+    ss << setw(2) << setfill ('0') << myTime->tm_min;
+    
+    return ss.str();
 }
 
 //this creates a unique ID for each event that happens, this is private so only WE can call it
@@ -26,7 +45,7 @@ string SystemManager::generateEventID() {
 
 void SystemManager::login(string userID, string password) {
     string eid = generateEventID();
-    string timestamp = "05-03-2026 10:00"; 
+    string timestamp = generateTimestamp(); 
 
   //this essentially means that for every login attempt, we want WHO logged in, WHAT they typed, and WHEN they typed it
   // for now I used a placeholder for the time and date, and we are generating a unique ID for any event that happens as a result of this
@@ -49,7 +68,7 @@ void SystemManager::login(string userID, string password) {
         failedLoginAttempts = 0;
         isLoggedIn = true; //our bool is now true
         currentUserID = userID;
-        LoginEvent* e = new LoginEvent(userID, eid, timestamp, "Info", "Successful Login");
+        LoginEvent* e = new LoginEvent(userID, eid, timestamp, "Safe", "Successful Login");
         logManager->addEvent(e);
         cout << "Login successful! Welcome, " << userID << endl;
     }
@@ -60,7 +79,7 @@ void SystemManager::login(string userID, string password) {
 void SystemManager::loadFile(string fileName) {
     string eid = generateEventID(); //we generate a unique eventID for this file event
   //and we check the following: are they even logged in first?
-    string timestamp = "05-03-2026 10:00";
+    string timestamp = generateTimestamp();
     if (!isLoggedIn) {
         cout << "Error: You must be logged in to load a file." << endl;
         return;
@@ -72,9 +91,9 @@ void SystemManager::loadFile(string fileName) {
         FileEvent* e = new FileEvent(currentUserID, eid, timestamp, "Warning", "Unknown", "Load Failed - No File Name Given");
         logManager->addEvent(e); //again, we are handing it to the logManager to log all events
         cout << "Error: No file name was given." << endl;
-    } else  
+    } else {
         hasUnsavedChanges = true; //this means the user loaded a file but haven't saved yet
-        FileEvent* e = new FileEvent(currentUserID, eid, timestamp, "Info", fileName, "Load Successful");
+        FileEvent* e = new FileEvent(currentUserID, eid, timestamp, "Safe", fileName, "Load Successful");
         logManager->addEvent(e); //we are creating an info fileevent (successful load) and handing it to the logManager
         cout << "File loaded successfully: " << fileName << endl;
     }
@@ -85,7 +104,7 @@ void SystemManager::loadFile(string fileName) {
 
 void SystemManager::saveFile(string fileName) {
     string eid = generateEventID();
-    string timestamp = "05-03-2026 10:00";
+    string timestamp = generateTimestamp();
 
     if (!isLoggedIn) {
         cout << "Error: You must be logged in to save a file." << endl;
@@ -106,7 +125,7 @@ void SystemManager::saveFile(string fileName) {
       //ergo the "hasUnsavedChanges = false;"
       
         hasUnsavedChanges = false;
-        FileEvent* e = new FileEvent(currentUserID, eid, timestamp, "Info", fileName, "Save Successful");
+        FileEvent* e = new FileEvent(currentUserID, eid, timestamp, "Safe", fileName, "Save Successful");
         logManager->addEvent(e);
         cout << "File saved successfully: " << fileName << endl;
     }
@@ -118,7 +137,7 @@ void SystemManager::saveFile(string fileName) {
 void SystemManager::shutdownSystem() {
 
     string eid = generateEventID();
-    string timestamp = "05-03-2026 10:00";
+    string timestamp = generateTimestamp();
 
     if (hasUnsavedChanges) {
       //if there are unsaved changes then warn the user!!
@@ -130,7 +149,7 @@ void SystemManager::shutdownSystem() {
   //this is now the severity of the info itself
   //we use this to shut the info down normally and most importantly cleanly
   //basically everything is fine here
-        ShutdownEvent* e = new ShutdownEvent(currentUserID, eid, timestamp, "Info", "Clean Shutdown");
+        ShutdownEvent* e = new ShutdownEvent(currentUserID, eid, timestamp, "Safe", "Clean Shutdown");
         logManager->addEvent(e);
         cout << "System shutting down cleanly." << endl;
     }
@@ -143,3 +162,5 @@ void SystemManager::shutdownSystem() {
 
     cout << "System has shut down. Goodbye!" << endl;
 }
+
+
