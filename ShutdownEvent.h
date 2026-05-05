@@ -19,7 +19,7 @@ using namespace std;
     
     
     public: 
-    ShutdownEvent(string uid, string eid, string time, string sever, string status);
+    ShutdownEvent(string uid, string eid, string eventTime, string sever, string status);
    //status
     
     
