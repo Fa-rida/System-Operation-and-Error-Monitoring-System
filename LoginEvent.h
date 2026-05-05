@@ -24,7 +24,7 @@ class LoginEvent : public SystemEvent { //  guided by inheritance plan slides
     // how to write it with no errors
    
     public: 
-    LoginEvent(string uid, string eid, string time, string sever, string lstatus);
+    LoginEvent(string uid, string eid, string eventTime, string sever, string lstatus);
     
     void displayInfo() override;
     
@@ -32,4 +32,5 @@ class LoginEvent : public SystemEvent { //  guided by inheritance plan slides
     
     
 };
+#endif
 #endif
