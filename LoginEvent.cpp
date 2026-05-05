@@ -7,8 +7,8 @@
 
 using namespace std;
 
-        LoginEvent::LoginEvent(string uid, string eid, string time, string sever, string lstatus)
-        : SystemEvent(uid, eid, "Login", time, sever)
+        LoginEvent::LoginEvent(string uid, string eid, string eventTime, string sever, string lstatus)
+        : SystemEvent(uid, eid, "Login", eventTime, sever)
         {
             loginStatus = lstatus;  // new variable
         }
@@ -23,6 +23,5 @@ using namespace std;
         ss << SystemEvent::toFileString() << "," << loginStatus;
         return ss.str();
     }
-
     
     
