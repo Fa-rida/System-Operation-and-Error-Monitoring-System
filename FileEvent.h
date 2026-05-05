@@ -15,7 +15,7 @@ class FileEvent : public SystemEvent { // : inheritance = related
     string operationType; 
     
     public:
-    FileEvent(string uid, string eid, string time, string sever, string fileName, string operationType);
+    FileEvent(string uid, string eid, string eventTime, string sever, string fileName, string operationType);
 
 
     void displayInfo() override;
@@ -26,4 +26,3 @@ class FileEvent : public SystemEvent { // : inheritance = related
     
 };
 #endif
-    
