@@ -8,11 +8,11 @@
 // the functions that are being used
 // learned that :: is needed when it comes to implementation because
 // we need to know which class the function belongs to. ex: classname::
-SystemEvent::SystemEvent(string uid, string eid, string event, string time, string sever) {
+SystemEvent::SystemEvent(string uid, string eid, string event, string eventTime, string sever) {
         userID = uid;
         eventID = eid;
         eventType = event;
-        timestamp = time;
+        timestamp = eventTime;
         severity = sever;
 }
 // needs display function(polymorphism) and file string for csv. .cpp does not use virtual
@@ -25,7 +25,7 @@ SystemEvent::SystemEvent(string uid, string eid, string event, string time, stri
         cout << "Event ID: " << eventID << endl;
         cout << "Event Type: " << eventType << endl;
         cout << "Time of event: " << timestamp << endl;
-        cout << "Severity: High|Moderate|Low: " << severity << endl;
+        cout << "Severity: Safe|Warning|Critical: " << severity << endl;
     }
     
     
