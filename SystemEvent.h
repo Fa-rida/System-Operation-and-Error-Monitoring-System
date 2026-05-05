@@ -25,13 +25,28 @@ class SystemEvent {
     string severity; // severity level - high moderate
     
     public: //names
-    SystemEvent (string uid, string eid, string event, string time, string sever);
+    SystemEvent (string uid, string eid, string event, string eventTime, string sever);
     virtual void displayInfo();
     virtual string toFileString();
     virtual ~SystemEvent();
     
+    string getUserID() {
+        return userID;
+    }
+    string getEventID() {
+        return eventID;
+    }
+    string getEventType() {
+        return eventType;
+    }
+    string getTimestamp() {
+        return timestamp;
+    }
+    string getSeverity() {
+        return severity;
+    }
+    
     
 }; // always for classes
 #endif   // needs to be used when using ifndef/define
-
 
