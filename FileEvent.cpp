@@ -10,8 +10,8 @@
 using namespace std;
 
 // :: wthis is used for which class the data belongs to
-   FileEvent::FileEvent(string uid, string eid, string time, string sever, 
-      string fName, string opType) : SystemEvent(uid, eid, "File", time, sever)
+   FileEvent::FileEvent(string uid, string eid, string eventTime, string sever, 
+      string fName, string opType) : SystemEvent(uid, eid, "File", eventTime, sever)
 {
     // the base class variables + new variables for FileEvent
     
@@ -43,4 +43,5 @@ using namespace std;
        return operationType;
    }
 
+  
   
