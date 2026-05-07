@@ -113,8 +113,119 @@
             }
             events.clear(); //deletes elements in the vector
         }
+// Josefina File handler      
+#include "FileHandler.h"
+#include "FileEvent.h"
+#include "LoginEvent.h"
+#include "SystemEvent.h"
+#include "ShutdownEvent.h"
+#include "LogManager.h"
+
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <sstream>
+
+//saveToFile() is to be able to save all events from LogManager into a file.
+void FileHandler :: saveToFile(LogManager* lm, const string fileName){
+    
+    ofstream file(fileName); //this is an output file stream object and
+                            //this opens the file for writing
+    if(!file.is_open()){   // this tracks if file was successfully opened
+        cout<<"Error saving file.\n";
+        return;
         
+    }
+    // loops through the events that are stored in LogManger
+    for(auto e : lm ->getEvents()){
+        file<<e ->toFileString() <<endl; //writes it in the file
         
+    }
+    file.close(); // created so the file automatically closes when function ends
+}
+
+//LoadFromFile() is mean to read events from a file and recreates events objects
+void FileHandler :: loadFromFile(LogManager* lm, string fileName){
+   //formula to check if Logmanger pointer is empty or null
+    if(lm == nullptr){
+        cout<<"Logmanger is null.\n";
+        return;
+    }
+    //this is to create input file stream objects and reads file
+    ifstream file(fileName);
+    
+    if(!file.is_open()){  //to make sure it is successfullu opened
+        cout<<"Error opening file.\n";
+        return;
+    }
+    
+    string line; //will help store one line from a file at a time
+    
+    //will read file line by line
+    while(getline(file,line)){
+        stringstream ss(line);
+        
+        string type; // meant to be able to store event (Login, system and Shutdown)
+        getline(ss,type, '|'); //getline will be either login,system or shutdown 
+                              //ss will be string stream and type 
+        
+        SystemEvent* event = nullptr; //this pointer used to store any event object created
+        
+        //Login event
+        
+        if(type == "LOGIN"){
+          string uid, eid, timestamp, severity, loginStatus; //to store file data
+          //this will help get each information and seperate to look more organized 
+          getline(ss,uid,'|');
+          getline(ss,eid,'|');
+          getline(ss,timestamp,'|');
+          getline(ss,severity,'|');
+          getline(ss,loginStatus,'|');
+          //creates a new LoginEvent
+          event = new LoginEvent(uid, eid, timestamp, severity, loginStatus);
+          
+        } 
+        
+        //System Event
+        
+        else if(type == "SYSTEM"){
+            string uid, eid, eventType, timestamp, severity;
+            getline(ss,uid,'|');
+            getline(ss,eid,'|');
+            getline(ss,eventType,'|');
+            getline(ss,timestamp,'|');
+            getline(ss,severity,'|');
+            //creates a new SystemEvent
+            event = new SystemEvent(uid, eid, eventType, timestamp, severity);
+        }
+        
+        //Shutdown Event 
+        
+        else if(type == "SHUTDOWN"){
+            string uid, eid, eventType, timestamp, severity;
+            getline(ss,uid,'|');
+            getline(ss,eid,'|');
+            getline(ss,eventType,'|');
+            getline(ss,timestamp,'|');
+            getline(ss,severity,'|');
+            //creates a new ShutdownEvent
+            event = new ShutdownEvent(uid, eid, eventType, timestamp, severity);
+        }
+        // will run if the events types do no match 
+        else{
+            cout<<"Unknown event type: "<<type<<endl;
+            continue;
+        }
+        //adds the newly created event object into the LogMangeranager vector
+        lm ->addEvent(event);
+    }
+    
+   file.close(); // closes file automatically
+}
+
+
+
+     
         
         
         
