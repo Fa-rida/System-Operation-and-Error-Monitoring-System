@@ -50,7 +50,7 @@ class LogManager{
         ~LogManager();
 };
 #endif
-
+//Josefina File handler
 #ifndef FILEHANDLER_H
 #define FILEHANDLER_H
 
