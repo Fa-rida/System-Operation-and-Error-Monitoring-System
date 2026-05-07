@@ -50,3 +50,26 @@ class LogManager{
         ~LogManager();
 };
 #endif
+
+#ifndef FILEHANDLER_H
+#define FILEHANDLER_H
+
+#include <string> 
+using namespace std;
+
+
+class LogManager;//calling on LogManager (file already exists)
+ 
+//Handles saving event data to files and loads into files 
+class FileHandler {
+    public:
+    //will take all events from LogManager and write them into files
+        void saveToFile(LogManager* lm, string fileName);//lm is pointer to the LogManager
+                                                        // and fileName is name to the file we have to save into 
+    //will read all event data from a file and recreate event objects
+        void loadFromFile(LogManager* lm, string fileName);//fileName is name of file to read from 
+        
+
+};
+
+#endif
