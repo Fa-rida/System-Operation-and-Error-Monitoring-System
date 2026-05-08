@@ -19,7 +19,7 @@ private:
     LogManager* logManager; //we are pointing to the logmanager class
 
 public:
-
+    string generateTimestamp(); //Newton: declaring the function in the .h file
     SystemManager(LogManager* lm);  //a constructor than runs automatically, lm is an alias for the log manager we recieve
     void login(string userID, string password); //this is our login function which needs a userID
     void loadFile(string fileName);

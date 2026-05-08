@@ -114,7 +114,7 @@
             events.clear(); //deletes elements in the vector
         }
 // Josefina File handler      
-#include "FileHandler.h"
+//#include "FileHandler.h"
 #include "FileEvent.h"
 #include "LoginEvent.h"
 #include "SystemEvent.h"
@@ -223,6 +223,10 @@ void FileHandler :: loadFromFile(LogManager* lm, string fileName){
    file.close(); // closes file automatically
 }
 
+vector<SystemEvent*> LogManager::getEvents()
+{
+    return events;
+}
 
 
      

@@ -15,6 +15,9 @@ class LogManager{
         vector<SystemEvent*>events;
         
     public:
+
+        vector<SystemEvent*> getEvents();
+        
         void addEvent(SystemEvent* genEvent); //genEvent means generated event
         
         void viewAllEvents();
