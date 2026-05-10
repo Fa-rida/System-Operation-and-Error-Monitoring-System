@@ -59,7 +59,7 @@ class LoginEvent : public SystemEvent { // guided by inheritance plan slides
     string loginStatus; // this will help store login data info
     // + does not need string SystemEvent because it already is
 
-    // used notes for polymorphism and chatGPT to explain what I was missing and
+    // used notes for polymorphism and asked chatGPT to explain what I was missing and
     // how to write it with no errors
 
     public:
