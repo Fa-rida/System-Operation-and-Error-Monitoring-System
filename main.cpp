@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+
 #include "LogManager.h"
 #include "SystemManager.h"
 
@@ -13,32 +15,144 @@ int main()
 
     do
     {
-        cout << "\n --- SELTS MENU ---" << endl;
-        cout << "1. View All Events" << endl;
-        cout << "2. Generate Summary" << endl;
-        cout << "3. Exit" << endl;
+        cout << "\n --- WELCOME TO THE SYSTEM OPERATION AND ERROR MONITORING SYSTEM MENU ---" << endl;
+
+        cout << "1. Login Attempt" << endl;
+        cout << "2. Load File" << endl;
+        cout << "3. Save File" << endl;
+        cout << "4. Shutdown System" << endl;
+        cout << "5. View All Events" << endl;
+        cout << "6. Search By Event ID" << endl;
+        cout << "7. Search By User ID" << endl;
+        cout << "8. Filter By Event Type" << endl;
+        cout << "9. Filter By Severity" << endl;
+        cout << "10. Generate Summary" << endl;
+        cout << "11. Exit" << endl;
+        
         cout << "Enter choice: ";
         cin >> choice;
 
         switch(choice)
         {
-            case 1:
-                logManager.viewAllEvents();
+             case 1:
+            {
+                string userID;
+                string password;
+
+                cout << "Enter User ID: ";
+                cin >> userID;
+
+                cout << "Enter Password: ";
+                cin >> password;
+
+                systemManager.login(userID, password);
+
                 break;
+            }
 
             case 2:
-                logManager.generateSummary();
+            {
+                string fileName;
+
+                cout << "Enter file name to load: ";
+                cin >> fileName;
+
+                systemManager.loadFile(fileName);
+
                 break;
+            }
 
             case 3:
+            {
+                string fileName;
+
+                cout << "Enter file name to save: ";
+                cin >> fileName;
+
+                systemManager.saveFile(fileName);
+
+                break;
+            }
+
+            case 4:
+            {
+                systemManager.shutdownSystem();
+                break;
+            }
+
+            case 5:
+            {
+                logManager.viewAllEvents();
+                break;
+            }
+
+            case 6:
+            {
+                string eventID;
+
+                cout << "Enter Event ID: ";
+                cin >> eventID;
+
+                logManager.searchByEventID(eventID);
+
+                break;
+            }
+
+            case 7:
+            {
+                string userID;
+
+                cout << "Enter User ID: ";
+                cin >> userID;
+
+                logManager.searchByUserID(userID);
+
+                break;
+            }
+
+            case 8:
+            {
+                string type;
+
+                cout << "Enter Event Type (Login/File/Shutdown): ";
+                cin >> type;
+
+                logManager.filterByType(type);
+
+                break;
+            }
+
+            case 9:
+            {
+                string severity;
+
+                cout << "Enter Severity (Safe/Warning/Critical): ";
+                cin >> severity;
+
+                logManager.filterBySeverity(severity);
+
+                break;
+            }
+
+            case 10:
+            {
+                logManager.generateSummary();
+                break;
+            }
+
+            case 11:
+            {
                 cout << "Exiting program..." << endl;
                 break;
+            }
 
             default:
-                cout << "Invalid choice" << endl;
+            {
+                cout << "Invalid choice. Try again." << endl;
+            }
         }
 
-    } while(choice != 3);
+    } while(choice != 11);
 
     return 0;
 }

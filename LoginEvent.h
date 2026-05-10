@@ -38,23 +38,40 @@
 #ifndef LOGINEVENT_H
 #define LOGINEVENT_H
 
-#include "SystemEvent.h"
+//Arashel - LoginEvent header file
+
+#include <iostream>
 #include <string>
+#include "SystemEvent.h"
+
+// class name 2: LoginEvent - used for the login attempts
 
 using namespace std;
 
-class LoginEvent : public SystemEvent
-{
-private:
-    string loginStatus;
+// because it is part of inheritance plan, instead of using basic
+// class LoginEvent {, we are putting them together.
+// loginEvent is a derived class (child)
 
-public:
-    LoginEvent(string eventID, string userID, string severity,
-               string timestamp, string status);
+class LoginEvent : public SystemEvent { // guided by inheritance plan slides
+
+    private:
+
+    string loginStatus; // this will help store login data info
+    // + does not need string SystemEvent because it already is
+
+    // used notes for polymorphism and chatGPT to explain what I was missing and
+    // how to write it with no errors
+
+    public:
+
+    LoginEvent(string userID, string eventID,
+               string timestamp, string severity,
+               string status);
 
     void displayInfo() override;
 
     string toFileString() override;
+
 };
 
 #endif
