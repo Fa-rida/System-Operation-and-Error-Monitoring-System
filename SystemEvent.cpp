@@ -36,7 +36,7 @@ SystemEvent::SystemEvent(string uid, string eid, string event, string eventTime,
         return ss.str();
     }
 
-    bool SystemEvent::operator == (const systemEvent& other){
+    bool SystemEvent::operator == (const systemEvent& other){ //operator overloading part. compares 2 event IDs to check if they are equal
         return eventID == other.eventID;
     }
 
