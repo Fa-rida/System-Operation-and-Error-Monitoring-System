@@ -35,4 +35,9 @@ SystemEvent::SystemEvent(string uid, string eid, string event, string eventTime,
         << severity << "," << timestamp;
         return ss.str();
     }
+
+    bool SystemEvent::operator == (const systemEvent& other){
+        return eventID == other.eventID;
+    }
+
     SystemEvent::~SystemEvent() {}
