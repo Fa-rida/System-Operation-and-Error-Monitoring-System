@@ -135,7 +135,7 @@ void LogManager :: saveToFile(string fileName){
         
     }
     file.close(); // created so the file automatically closes when function ends
-    cout << "Events saved successfully." << endl;
+    cout << "Logs saved successfully." << endl;
 }
 
 //LoadFromFile() is mean to read events from a file and recreates events objects
@@ -150,11 +150,10 @@ void LogManager :: loadFromFile(string fileName){
     }
     
     string line; //will help store one line from a file at a time
-        //getline(ss,type, ','); //getline will be either login,system or shutdown 
-
+        
         //Login event
-    while(getline(file,line)){ 
-        stringstream ss(line); //string type; // meant to be able to store event (Login, system and Shutdown)
+    while(getline(file,line)){
+        stringstream ss(line); 
         
         string uid, eid, type, severity, timestamp;
         getline(ss,eid,',');//event id comes first here because that's the format used when saving to file but it comes second in the other parts because thats the constructor order.
@@ -184,6 +183,7 @@ void LogManager :: loadFromFile(string fileName){
             event = new FileEvent(uid, eid, timestamp, severity, fileName, operationType);
         }
             
+        
         //Shutdown Event 
         
         else if(type == "Shutdown"){
@@ -192,6 +192,7 @@ void LogManager :: loadFromFile(string fileName){
             
             event = new ShutdownEvent(uid, eid, timestamp, severity, shutdownStatus);
         }
+           
         
         // will run if the events types do no match 
         else{
@@ -206,6 +207,11 @@ void LogManager :: loadFromFile(string fileName){
    cout << "Logs loaded successfully" << endl;
 }
 
-vector<SystemEvent*> LogManager::getEvents(){
+vector<SystemEvent*> LogManager::getEvents()
+{
     return events;
 }
+
+        
+        
+        
