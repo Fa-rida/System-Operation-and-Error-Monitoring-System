@@ -26,6 +26,7 @@ class SystemEvent {
     
     public: //names
     SystemEvent (string uid, string eid, string event, string eventTime, string sever);
+    bool operator == (const SystemEvent& other);
     virtual void displayInfo();
     virtual string toFileString();
     virtual ~SystemEvent();
