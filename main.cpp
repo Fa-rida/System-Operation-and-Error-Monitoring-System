@@ -15,7 +15,7 @@ int main()
 
     do
     {
-        cout << "\n --- WELCOME TO THE SYSTEM OPERATION AND ERROR MONITORING SYSTEM MENU ---" << endl;
+        cout << "\n --- WELCOME TO THE SYSTEM OPERATION AND ERROR MONITORING SYSTEM MENU. PLEASE SELECT AN OPTION FROM THE MENU ---" << endl;
 
         cout << "1. Login Attempt" << endl;
         cout << "2. Load File" << endl;
@@ -27,7 +27,9 @@ int main()
         cout << "8. Filter By Event Type" << endl;
         cout << "9. Filter By Severity" << endl;
         cout << "10. Generate Summary" << endl;
-        cout << "11. Exit" << endl;
+        cout << "11. Load From File" << endl;
+        cout << "12. Save to File" << endl;
+        cout << "13. Exit" << endl;
         
         cout << "Enter choice: ";
         cin >> choice;
@@ -139,8 +141,29 @@ int main()
                 logManager.generateSummary();
                 break;
             }
-
+            
             case 11:
+            {
+                string nameFile;
+                cout << "Enter the name of the file: ";
+                cin >> nameFile;
+                
+                logManager.loadFromFile(nameFile);
+                break;
+            }
+            
+            case 12:
+            {
+                string nameFile;
+                cout << "Enter the name of the file: ";
+                cin >> nameFile;
+                
+                logManager.saveToFile(nameFile);
+                
+                break;
+            }
+
+            case 13:
             {
                 cout << "Exiting program..." << endl;
                 break;
@@ -152,7 +175,7 @@ int main()
             }
         }
 
-    } while(choice != 11);
+    } while(choice != 13);
 
     return 0;
 }
