@@ -1,6 +1,5 @@
 //farida - logmanager.h file
 //josefina - file handling
-
 #ifndef LOGMANAGER_H
 #define LOGMANAGER_H
 #include "SystemEvent.h"
@@ -31,9 +30,9 @@ class LogManager{
         
         void generateSummary();
         
-        void saveToFile(string fileName);// will take all events from LogManager and write them into files
+        void saveToFile(string fileName);
         
-        void loadFromFile(string fileName);//will read all events data from a file recreat event odject
+        void loadFromFile(string fileName);
         
         template <typename T> //creating a function template to count events that match the value by severity or type.
         int countEvents(T value, string category){
